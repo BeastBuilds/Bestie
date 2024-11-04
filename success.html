@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Page</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link your CSS -->
+</head>
+<body>
+    <div class="container">
+        <h1>Congratulations!</h1>
+        <div id="giftsMessage">
+            <h2>You WON the following gifts:</h2>
+            <ul>
+                <li>A Beautiful Website Created by Your BUBBY</li>
+                <li>BOOKS</li>
+                <li>EAR PINS</li>
+                <li>RING</li>
+                <li>A VIDEO</li>
+            </ul>
+            <p>But for the video, you have to take a screenshot of this result and show it to me! (Do not Cheat and Restart) </p>
+        </div>
+        <p id="resultMessage"></p>
+        <p id="lostQuestionsMessage"></p>
+    </div>
+
+    <script>
+        // Retrieve the lost questions and count from local storage
+        const lostQuestions = JSON.parse(localStorage.getItem("lostQuestions")) || [];
+        const lostCount = localStorage.getItem("lostCount");
+
+        // Display the results
+        const resultMessage = document.getElementById("resultMessage");
+        const lostQuestionsMessage = document.getElementById("lostQuestionsMessage");
+
+        resultMessage.textContent = `You finished the quiz! You lost ${lostCount} time(s).`;
+
+        if (lostCount > 0) {
+            lostQuestionsMessage.textContent = `You lost on the following questions: ${lostQuestions.join(", ")}`;
+        } else {
+            lostQuestionsMessage.textContent = "You didn't lose any questions!";
+        }
+
+        // Restart button functionality
+        document.getElementById("restartButton").addEventListener("click", function() {
+            // Clear the local storage
+            localStorage.removeItem("lostQuestions");
+            localStorage.removeItem("lostCount");
+            // Redirect back to the quiz start page
+            window.location.href = "index.html";
+        });
+    </script>
+</body>
+</html>
